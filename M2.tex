@@ -241,7 +241,7 @@ In task 2 we configured the adder circuit using two additional resistances on th
     \label{fig:task2}
 \end{figure}
 
-The inverting voltage follower of task 3 consisted of only input voltage, output voltage measurement, and the operational amplifier. There were no resistances connected to any pins of the opamp. To achieve this setup we merely connected pin 2 with pin 6 of the opamp using one jumping wire, we left the input and output untouched, still driving the circuit through the inverting input and grounding the non-inverting input.
+The non-inverting voltage follower of task 3 consisted of only input voltage, output voltage measurement, and the operational amplifier. There were no resistances connected to any pins of the opamp. To achieve this setup we merely connected pin 2 with pin 6 of the opamp to form the feedback loop using one jumping wire, we set a signal driving the circuit through the non-inverting input.
 
 Task 4 called for a differentiator circuit consisting of two capacitances of values $C=10$nF, $C_p=100$pF, and a resistance of value $R_v=100$k$\Omega$. We later removed the capacitance $C_p$ to determine the role it had in the differentiator circuit.
 \begin{figure}[H]
@@ -254,15 +254,50 @@ The integrator circuit was composed similar to the differentiator circuit with t
 
 \pagebreak\section{Measurements}
 
-\subsection{Inverting operational amplifier}
+\subsection{Saturation voltage of the inverting configuration}
+To test the inverting operational amplifier configuration of the $\mu$A741 opamp. We drove a DC input of 500 mV on the inverting input (pin 2) using the power supply instead of the signal generator. We chose this because while the signal generator can supply DC drive theoretically, our lab instructor mentioned that it is not a perfect DC signal and may result in some noise or unwanted artifacts.
 
-\subsubsection{Operation of the adder amplifier}
+Finding the saturation voltage consisted of increasing the input voltage with increments of 100 mV, and determining the position of the cutoff where the output voltage no longer shows an increase as the input is increased.
 
-\subsubsection{Non-inverting voltage follower}
+\begin{table}[H]
+    \centering
+    \vspace{0.2cm}
+    \begin{tabular}{cc}
+        \toprule
+        $U_{in}$ [V] & $U_{out}$ [V] \\
+        \midrule
+        0.1 & -0.578 \\
+        0.2 & -0.755 \\
+        0.3 & -1.145 \\
+        0.4 & -1.687 \\
+        0.5 & -2.241 \\
+        0.6 & -2.626 \\
+        0.7 & -3.059 \\
+        0.8 & -3.147 \\
+        0.9 & -3.147 \\
+        1.0 & -3.149 \\
+        1.1 & -3.149 \\
+        1.2 & -3.149 \\
+        \bottomrule
+    \end{tabular}
+    \caption{Increasing DC input and output voltages of the inverting opamp configuration}
+    \label{tab:inverting_dc}
+\end{table}
 
-\subsubsection{Operation of the differentiator circuit}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{task1_transfer_curve.png}
+    \caption{Finding the saturation voltage of the inverting opamp configuration with DC input}
+    \label{fig:task1_transfer_curve}
+\end{figure}
 
-\subsubsection{Operation of the integrator circuit}
+\subsection{Operation of the adder amplifier}
+
+\subsection{Non-inverting voltage follower}
+
+\subsection{Operation of the differentiator circuit}
+
+\subsection{Operation of the integrator circuit}
 
 \section{Conclusion}
 
