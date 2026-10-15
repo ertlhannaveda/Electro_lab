@@ -1,0 +1,20 @@
+# LaTeX auxiliary and cache files
+*.aux
+*.bcf
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# OS files
+.DS_Store
+
+# Optional: Exclude final compiled PDF from Git (rebuild locally instead)
+# *.pdf
