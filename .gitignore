@@ -17,4 +17,4 @@
 .DS_Store
 
 # Optional: Exclude final compiled PDF from Git (rebuild locally instead)
-# *.pdf
+# *.pdf*.pdf
