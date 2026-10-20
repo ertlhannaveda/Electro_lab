@@ -301,6 +301,32 @@ To get a smaller relative deviation we could have measured the true resistance v
 
 \subsection{Operation of the adder amplifier}
 
+In order to study the operation of the adder amplifier, a circuit shown in the image below was built. Resistors with a value of 1 k\Omega were used, 2 of them were placed in parallel and 1 was between the ground and the non-inverting input, and the two inputs of the circuit was connected. Three input voltages of 100 mV, 500 mV and 1 V were applied, and the corresponding output voltages were measured.
+
+According to the equation provided in the Lab Description \cite{}, the output voltage is proportional to the sum of the input voltages:
+\begin{equation}
+    U_{out} = -\left(\frac{R_v}{R_1}U_{in1} + \frac{R_v}{R_2}U_{in2}\right).
+\end{equation}
+
+The measured voltages along with the expected theoretical values are shown in Table \ref{tab:adder}. 
+
+\begin{table}[H]
+    \centering
+    \caption{Measured and theoretical output voltages of the adder amplifier.}
+    \label{tab:adder}
+    \begin{tabular}{cccc}
+        \toprule
+        $U_{in}$ (V) & $U_{out,meas}$ (V) &
+        $U_{out,theor}$ (V) & Error (\%) \\
+        \midrule
+        0.100 & -0.171 & -0.200 & 14.50 \\
+        0.500 & -0.913 & -1.000 & 8.70 \\
+        1.000 & -1.917 & -2.000 & 4.15 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
 \subsection{Non-inverting voltage follower}
 
 \subsection{Operation of the differentiator circuit}
