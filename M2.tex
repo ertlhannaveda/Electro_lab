@@ -171,13 +171,25 @@ operational amplifiers\par}
 \section{Theoretical introduction} 
 This measurement focused on the operational amplifiers (opamps). Different configurations of these opamps, result in various applications, such as a voltage or current amplifier, both inverting and non inverting modes, voltage follower (also known as buffer), adder and subtractor, and integration and differentiator circuits.
 
-The basic operation of an opamp relies on the potential difference between its inputs. This potential difference is multiplied by some gain factor to result in the output voltage. It follows the equation: U$_{out}$ = A$_u\cdot$(U$_1$ - U$_2$). \\ With U$_1$ and U$_2$ being the voltages at the non-inverting and inverting inputs, respectively.
+The basic operation of an opamp relies on the potential difference between its inputs. This potential difference is multiplied by some gain factor to result in the output voltage. It follows the equation:
+\begin{equation}
+    U_{out} = A_u\cdot(U_1 - U_2)
+\end{equation}
+
+With U$_1$ and U$_2$ being the voltages at the non-inverting and inverting inputs, respectively.
 
 The basic configurations of the opamp mentioned above rely on the basis of being inverting or non-inverting. The differentiation between the two modes is the input signal of the opamp. If the input voltage is fed into the negative (inverting) input then the input signal will be negatively multiplied resulting in an output of the opposite sign. On the non-inverting (positive) input, the sign of the output voltage will be analogous to that of the input voltage. The amplitude of the opamp is configured by the ratios of the resistances of the circuit, with a resistor on the inverting input R$_s$ and a feedback resistor R$_v$.
 
-Amplification of inverting amplifier: $A_u=-\left( \frac{R_v}{R_s} \right)$
+Amplification of inverting amplifier: 
+\begin{equation}
+    A_u=-\left( \frac{R_v}{R_s} \right) 
+    \label{inv_opamp_amplification}
+\end{equation}
 
-Amplification of non-inverting amplifier: $A_u=1+\left( \frac{R_v}{R_s} \right)$
+Amplification of non-inverting amplifier: \begin{equation}
+A_u=1+\left( \frac{R_v}{R_s} \right)
+\label{noninv_opamp_amplification}
+\end{equation}
 
 The opamp requires a power supply. Upon saturation, when the opamp reaches its absolute maximum amplification gain, the output voltage saturates to the positive or negative supply voltage, depending on the circuitry being an inverting or non-inverting amplifier. There is a linear region of amplification before the saturation, in this region the output directly follows the input differential voltage equation shown above. However, upon saturation this linearity ceases, the output voltage caps, it shows a cut off when the input differential exceeds the threshold limit, this is what we refer to as the saturation of the signal.
 
@@ -186,27 +198,43 @@ Our laboratory configurations don't approach these ideals as such, our setup is 
 
 In the adder (summing) circuit the operation is to output a voltage that is a weighted sum of the multiple input voltages lead through the resistors, driven all through the inverting input of the opamp. In this case the node equation gives us an output voltage of:
 
-$\frac{U_1}{R_1}+\frac{U_2}{R_2}+\frac{U_3}{R_3}+\frac{U_{out}}{R_v}=0$
+\begin{equation}
+    \frac{U_1}{R_1}+\frac{U_2}{R_2}+\frac{U_3}{R_3}+\frac{U_{out}}{R_v}=0
+    \label{eq:adder}
+\end{equation}
 
-$U_{out}= -\left( \frac{R_v}{R_1} U_1+\frac{R_v}{R_2} U_2+\frac{R_v}{R_3} U_3\right)$
+\begin{equation}
+    U_{out}= -\left( \frac{R_v}{R_1} U_1+\frac{R_v}{R_2} U_2+\frac{R_v}{R_3} U_3\right)
+    \label{eq:out_adder}
+\end{equation}
+
 
 The subtractor circuit purely uses the potential difference between the input voltages on both inverting and non-inverting input, no open loop gain or resistors affect the output voltage in the case of the subtractor circuit:
-
-$U_{out}= U_{in1} - U_{in2}$
+\begin{equation}
+    U_{out}= U_{in1} - U_{in2}
+\end{equation}
 
 The voltage follower - also known as buffer - circuit has the aim of achieving unity gain, in reality we often achieve near unity gain $A_u\approx1$. The purpose of this opamp is to provide low-impedance voltage drive to following loads from an initial high input impedance signal source.
 
 Differentiator circuits place a capacitor between the input and feedback resistor on the amplifier, introducing an RC constant for accuracy in the equation of the output voltage, resulting in a phase shift between input and output signals. The original purpose however is to produce an output signal proportional to the rate of change of the input voltage, this protects the load from any steep changes in the input voltage, a great use in control engineering.
 
-$U_{out}= -CR_v \frac{dU_{in}(t)}{dt}$
+\begin{equation}
+    U_{out}= -CR_v \frac{dU_{in}(t)}{dt}
+    \label{eq:diff_out}
+\end{equation}
 
 Integrator circuitry swaps the positions of the resistor and capacitor. This is widely used in instruments such as radiation dose integration from pulse counts. The RC time constant appears again for accuracy in integration, resulting in the output relationship:
 
-$U_{out}= -\frac{1}{R_sC}\int_{0}^{t}U_{in}dt$
+\begin{equation}
+    U_{out}= -\frac{1}{R_sC}\int_{0}^{t}U_{in}dt
+\end{equation}
 
 The Miller effect appears in the high frequency range where it reduces the amplification by the parasitic stray capacitance which arises between the inverting input and output, multiplied by the stage gain:
 
-$C_{eff}=C\left( 1+A \right)$
+\begin{equation}
+    C_{eff}=C\left( 1+A \right)
+    \label{eq:Miller}
+\end{equation}
 
 \section{Measurement tools}
 For this measurement, we used the following list of tools:
@@ -301,13 +329,15 @@ To get a smaller relative deviation we could have measured the true resistance v
 
 \subsection{Operation of the adder amplifier}
 
-In order to study the operation of the adder amplifier, a circuit shown in the image below was built. Resistors with a value of 1 k\Omega were used, 2 of them were placed in parallel and 1 was between the ground and the non-inverting input, and the two inputs of the circuit was connected. Three input voltages of 100 mV, 500 mV and 1 V were applied, and the corresponding output voltages were measured.
+In order to study the operation of the adder amplifier, a circuit shown in the image below was built. Resistors with a value of $1\,\mathrm{k}\Omega$ were used,  2 of them were placed in parallel and 1 was between the ground and the non-inverting input, and the two inputs of the circuit was connected. Three input voltages of 100 mV, 500 mV and 1 V were applied, and the corresponding output voltages were measured.
 
-According to the equation provided in the Lab Description \cite{}, the output voltage is proportional to the sum of the input voltages:
+According to the equation provided in the Lab Description \cite{manual}, the output voltage is proportional to the sum of the input voltages:
 \begin{equation}
     U_{out} = -\left(\frac{R_v}{R_1}U_{in1} + \frac{R_v}{R_2}U_{in2}\right).
 \end{equation}
 
+
+Since $U_{in1} = U_{in2} = U_{in}$ and $R_v = R_1 = R_2$, the equation simplifies to $U_{out} = -2U_{in}$.
 The measured voltages along with the expected theoretical values are shown in Table \ref{tab:adder}. 
 
 \begin{table}[H]
@@ -326,10 +356,56 @@ The measured voltages along with the expected theoretical values are shown in Ta
     \end{tabular}
 \end{table}
 
+The measured values are close to the expected theoretical numbers, and all the output voltages are negative, which confirms that the circuit has inverting behavior. As the voltage increases, the relative errors decrease from 14.5\% to 4.15\%. 
 
 \subsection{Non-inverting voltage follower}
 
+A non-inverting voltage follower's operation was investigated using a sinusoidal input signal with 1 kHz frequency and 200 mV peak-to-peak voltage. Symmetrical voltages between +5V and -5V were applied to the operational amplifier. 
+
+The meausred output voltage was 198 mV, from which one can determine the gain:
+\newline $A_{u}=\frac{U_{out}}{U_{in}}=\frac{198}{200}=0.99$
+
+Since the theoretical gain is $A_{u}=1$, the obtained gain has a relative deviation of 1\%. 
+
+The upper cutoff frequency can be determined by increasing the input frequency until the output amplitude decreases to $\frac{1}{\sqrt(2)}$ of the maximum value, while the waveform does not distort. Based on the measured output voltage of 198 mV, the calculated amplitude is:
+\newline $U_{out}=\frac{198}{\sqrt{2}} = 140$ mV. This output amplitude was observed at $f_c = 731$ kHz, which is the cutoff frequency determined experimentally.
+
+
 \subsection{Operation of the differentiator circuit}
+
+A differentiator circuit with a 10 nF capacitor and a $100 k\Omega$ feedback resistor was assembled to examine its operation using sinusoidal, square and triangulas signals with 1kHz frequency. The effect of an additional 100 pF capacitor when connected in parallel with the feedback resistor was also studied. Instead of the 1 V input volage specified in the Lab Description, the measurement was performed using 500 mV, following the instructions of the laboratory supervisor (Farkas Viktor), since an applied input voltage of 1 V resulted in an output of approximately 6 V. 
+The output voltage of the differentiator is calculated according to Equation ~\ref{eq:diff_out}. 
+
+According to theory, the expected waveforms for sinusoidal, square and triangle waveforms are a negative cosine wave, alternating positive and negative peaks at transitions, and an approximately square wave with inverted slopes, respectively. For a sinusoidal input, ideal inverting differentiation produces a phase shift of $270^\circ$. Our experimentally obtained results are summarized in the following table: 
+
+\begin{table}[H]
+    \centering
+    \caption{Measured results of the differentiator circuit with and without $C_P$.}
+    \label{tab:differentiator}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        $C_P$ & Input signal & $U_{in}$ (V) &
+        $U_{out}$ (V) & Phase shift ($^\circ$) \\
+        \hline
+        With & Sine & 0.5 & 3.64 & 260 \\
+        \hline
+        With & Square & 0.5 & 7.68 & 177.4 \\
+        \hline
+        With & Triangle & 0.5 & 3.84 & 260 \\
+        \hline
+        With & Triangle & 1.8 & 7.80 & 235 \\
+        \hline
+        Without & Sine & 0.5 & 3.84 & 270 \\
+        \hline
+        Without & Square & 0.5 & 7.68 & 292 \\
+        \hline
+        Without & Triangle & 0.5 & 5.12 & 258 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
+
 
 \subsection{Operation of the integrator circuit}
 
