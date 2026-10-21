@@ -2,6 +2,7 @@
 % DOCUMENT DEFINITION
 %=====================================================================%
 
+
 \documentclass[12pt]{article}
 
 \usepackage[english]{babel}
@@ -30,13 +31,14 @@
 \graphicspath{{images/}}
 
 % references
-%\usepackage{csquotes}
-%\usepackage[
-    %backend=biber,
-    %style=numeric-comp,
-    %sorting=none
-%]{biblatex}
-%\addbibresource{references.bib}
+\usepackage{csquotes}
+\usepackage[
+    backend=biber,
+    style=numeric-comp,
+    sorting=none
+]{biblatex}
+\addbibresource{references.bib}
+
 
 % math
 \usepackage{amsmath}
@@ -166,6 +168,7 @@ operational amplifiers\par}
 %=====================================================================%
 \begin{abstract}
     \noindent 
+    This work presents the results obtained from the laboratory session focusing on the operation of different amplifier configurations including the inverting amplifier, adder amplifier, non-inverting voltage follower, differentiator and integrator. The voltage gain, saturation and upper cutoff frequency are determined experimentally. The differentiator and integrator circuits were studied using sinusoidal, square and triangular input waveforms, and the effects of additional feedback components were investigated. 
 \end{abstract}
 
 \section{Theoretical introduction} 
@@ -227,6 +230,7 @@ Integrator circuitry swaps the positions of the resistor and capacitor. This is 
 
 \begin{equation}
     U_{out}= -\frac{1}{R_sC}\int_{0}^{t}U_{in}dt
+    \label{equ:integration}
 \end{equation}
 
 The Miller effect appears in the high frequency range where it reduces the amplification by the parasitic stray capacitance which arises between the inverting input and output, multiplied by the stage gain:
@@ -241,7 +245,7 @@ For this measurement, we used the following list of tools:
 \begin{itemize}
 \item OK Industries Inc. CM-140 L breadboard
 \item ST $\mu$A741CN operational amplifier - 93d427
-\item Resistors: 470 k$\Omega$ (1 piece), 100 k$\Omega$ (1 piece), 1 k$\Omega$ (4 pieces)
+\item Resistors: 470 k$\Omega$ (1 piece), 100 k$\Omega$ (1 piece), 1 k$\Omega$ (4 pieces), 10 M$\Omega$ (1 piece)
 \item Banana plugs (8 pieces)
 \item Crocodile clip (6 pieces)
 \item Jumping wires (6 pieces)
@@ -249,10 +253,11 @@ For this measurement, we used the following list of tools:
 \item HM8040-2 HAMEG Triple power supply
 \item HM 8011-3 HAMEG Digital multimeter
 \item SIGLENT SDS 1072CML Digital storage oscilloscope
+\item Capacitors: 10 nF (1 piece), 100 pF (1 piece)
 \end{itemize}
 
-\section{Measurement setup}
-We configured the circuits shown in the figures by using the breadboard. Following figure 4 for the first task we built the inverting configuration by forming a common ground with the banana cables for all instruments, this way we could set the input voltage and measure the output voltage with respect to this common ground we established. We added a 100 k$\Omega$ resistor to the inverting input pin of the opamp (leg 2) and added the feedback resistor of 470 k$\Omega$ from leg 2 to 6 (output pin).
+\newpage \section{Measurement setup}
+We configured the circuits shown in the figures by using the breadboard. Following the handout's figure 4 \cite{opamp_manual} for the first task we built the inverting configuration by forming a common ground with the banana cables for all instruments, this way we could set the input voltage and measure the output voltage with respect to this common ground we established. We added a 100 k$\Omega$ resistor to the inverting input pin of the opamp (leg 2) and added the feedback resistor of 470 k$\Omega$ from leg 2 to 6 (output pin).
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.7\linewidth]{task1.png}
@@ -283,7 +288,7 @@ The integrator circuit was composed similar to the differentiator circuit with t
 \pagebreak\section{Measurements}
 
 \subsection{Saturation voltage of the inverting configuration}
-To test the inverting operational amplifier configuration of the $\mu$A741 opamp. We drove a DC input of 500 mV on the inverting input (pin 2) using the power supply instead of the signal generator. We chose this because while the signal generator can supply DC drive theoretically, our lab instructor mentioned that it is not a perfect DC signal and may result in some noise or unwanted artifacts.
+To test the inverting operational amplifier configuration of the $\mu$A741 opamp. We drove a DC input of 100 mV on the inverting input (pin 2) using the power supply instead of the signal generator. We chose this because while the signal generator can supply DC drive theoretically, our lab instructor mentioned that it is not a perfect DC signal and may result in some noise or unwanted artifacts.
 
 Finding the saturation voltage consisted of increasing the input voltage with increments of 100 mV, and determining the position of the cutoff where the output voltage no longer shows an increase as the input is increased.
 
@@ -319,11 +324,12 @@ Finding the saturation voltage consisted of increasing the input voltage with in
     \label{fig:task1_transfer_curve}
 \end{figure}
 
-We found the saturation voltage to be at $U_{in,sat}=800$ mV, where the output was $U_{out,sat}=-3.137$ V. From this point onwards the output voltage no longer increased with the same increment as previously, hence, here we determine the saturation voltage. Calculating the slope of the fitted line we found an open loop gain of $A_u\approx -4.4$. Theoretically our gain, and hence, relative error should be:
-
+We found the saturation voltage to be at $U_{in,sat}=800$ mV, where the output was $U_{out,sat}=-3.147$ V. From this point onwards the output voltage no longer increased with the same increment as previously, hence, here we determine the saturation voltage. Calculating the slope of the fitted line we found a closed loop gain of $A_u\approx -4.4$. Theoretically our gain, and hence, relative error should be:
+\begin{center}
 $A_u=-\frac{R_v}{R_s}=-\frac{470 k\Omega}{100 k\Omega} =-4.7$
 
-Relative Error($\%$)$=\frac{4.4-4.7}{4.4}\cdot100\%\approx-6.38\%$
+Relative Error($\%$)$=\frac{4.4-4.7}{4.7}\cdot100\%\approx-6.38\%$
+\end{center}
 
 To get a smaller relative deviation we could have measured the true resistance values of the resistors used with a multimeter, as they may have deviated from the theoretical value of 100 k$\Omega$ and 470 k$\Omega$.
 
@@ -331,7 +337,7 @@ To get a smaller relative deviation we could have measured the true resistance v
 
 In order to study the operation of the adder amplifier, a circuit shown in the image below was built. Resistors with a value of $1\,\mathrm{k}\Omega$ were used,  2 of them were placed in parallel and 1 was between the ground and the non-inverting input, and the two inputs of the circuit was connected. Three input voltages of 100 mV, 500 mV and 1 V were applied, and the corresponding output voltages were measured.
 
-According to the equation provided in the Lab Description \cite{manual}, the output voltage is proportional to the sum of the input voltages:
+According to the equation provided in the Lab Description \cite{opamp_manual}, the output voltage is proportional to the sum of the input voltages:
 \begin{equation}
     U_{out} = -\left(\frac{R_v}{R_1}U_{in1} + \frac{R_v}{R_2}U_{in2}\right).
 \end{equation}
@@ -360,10 +366,10 @@ The measured values are close to the expected theoretical numbers, and all the o
 
 \subsection{Non-inverting voltage follower}
 
-A non-inverting voltage follower's operation was investigated using a sinusoidal input signal with 1 kHz frequency and 200 mV peak-to-peak voltage. Symmetrical voltages between +5V and -5V were applied to the operational amplifier. 
+A non-inverting voltage follower's operation was investigated using a sinusoidal input signal with 1 kHz frequency and 200 mV peak-to-peak voltage. Symmetrical voltages between +5V and -5V were applied to the operational amplifier. No noticable distortion of the waveform was observed at the cutoff frequency.
 
 The meausred output voltage was 198 mV, from which one can determine the gain:
-\newline $A_{u}=\frac{U_{out}}{U_{in}}=\frac{198}{200}=0.99$
+\newline \begin{center} $A_{u}=\frac{U_{out}}{U_{in}}=\frac{198}{200}=0.99$ \end{center}
 
 Since the theoretical gain is $A_{u}=1$, the obtained gain has a relative deviation of 1\%. 
 
@@ -376,7 +382,9 @@ The upper cutoff frequency can be determined by increasing the input frequency u
 A differentiator circuit with a 10 nF capacitor and a $100 k\Omega$ feedback resistor was assembled to examine its operation using sinusoidal, square and triangulas signals with 1kHz frequency. The effect of an additional 100 pF capacitor when connected in parallel with the feedback resistor was also studied. Instead of the 1 V input volage specified in the Lab Description, the measurement was performed using 500 mV, following the instructions of the laboratory supervisor (Farkas Viktor), since an applied input voltage of 1 V resulted in an output of approximately 6 V. 
 The output voltage of the differentiator is calculated according to Equation ~\ref{eq:diff_out}. 
 
-According to theory, the expected waveforms for sinusoidal, square and triangle waveforms are a negative cosine wave, alternating positive and negative peaks at transitions, and an approximately square wave with inverted slopes, respectively. For a sinusoidal input, ideal inverting differentiation produces a phase shift of $270^\circ$. Our experimentally obtained results are summarized in the following table: 
+A circuit accurately performs differentiation if the time constant is much smaller than the period of the signal to be differentiated. However, in the circuit investigated, $\tau = 100 k\Omega \cdot 10 nF = 1 ms$ and the applied frequency was 1 kHz, therefore:
+            $T = \frac{1}{f}= 1 ms$, so $\tau = T$. Because of this, deviations from the ideal differentiation case are expected. 
+According to theory, the expected waveforms for sinusoidal, square and triangle waveforms are a negative cosine wave, alternating positive and negative peaks at transitions, and an approximately square wave with inverted slopes, respectively. For a sinusoidal input, ideal inverting differentiation produces a phase shift of $270^\circ$ \cite{WebbActiveFilters}. Our experimentally obtained results are summarized in the following table: 
 
 \begin{table}[H]
     \centering
@@ -404,13 +412,159 @@ According to theory, the expected waveforms for sinusoidal, square and triangle 
     \end{tabular}
 \end{table}
 
+For the sinusoidal waveform the output voltages were 3.64 V and 3.84 V with and without $C_P$ respectively. The corresponding phase shifts were $260^\circ$ and $270^\circ$, which are close to the theoretical phase shift for an ideal inverting differentiator. 
 
+For the square wave, the measured output voltage was 7.68 V both with and without the additional capacitor. For the triangular input at 500 mV, the output voltages were 3.84 V and 5.12 V with and without capacitor, respectively. With the additional capacitor present, the output did not show a well-defifen rectangular waveform. An additional measurement was performed at an input voltage of 1.8 V, which reuslted in an output voltage of 7.8 V and a more rectangular-like waveform. 
 
+The additional capacitor connected in parallel with the feedback resistor influences the output amplitudes and phase shifts, as it limits the high-frequency response of the circuit. 
+
+\begin{figure}[H]
+    \centering
+
+    % Row 1: Sinusoidal input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/sine_with.jpg}
+        \caption{Sine, with $C_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/sine_without.jpg}
+        \caption{Sine, without $C_P$}
+    \end{subfigure}
+
+    \vspace{0.3cm}
+
+    % Row 2: Square input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/square_with.jpg}
+        \caption{Square, with $C_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/square_without.jpg}
+        \caption{Square, without $C_P$}
+    \end{subfigure}
+
+    \vspace{0.3cm}
+
+    % Row 3: Triangular input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/triangle_with.jpg}
+        \caption{Triangle, with $C_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/triangle_without.jpg}
+        \caption{Triangle, without $C_P$}
+    \end{subfigure}
+
+    \caption{Oscilloscope measurements of the differentiator circuit
+    for sinusoidal, square and triangular input signals,
+    with and without the additional capacitor $C_P$.}
+    \label{fig:differentiator}
+\end{figure}
+As shown in the figure above, the measured waveforms approximately follow the expected behavior of the differentiator circuit. In the sinusoidal input case, a phase shift is observed. For the square-wave, peaks appear and in the triangular input case, the output is close to a rectangular waveform. The presence of the additional capacitor reduces the fluctuations and yields smoother output waveforms.  
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.65\textwidth]{images/additional.jpg}
+    \caption{Additional oscilloscope measurement of the differentiator circuit with $C_P$ for a triangular input signal of 1.8 V at 1 kHz.}
+    \label{fig:differentiator_additional}
+\end{figure}
+As shown in the figure above, increased triangular input voltage (1.8 V) resulted in a more defined rectangular output.
 
 \subsection{Operation of the integrator circuit}
 
-\section{Conclusion}
+The operation of an integrator circuit was investigated with sinusoidal, square and triangular input signals with a frequency of 1 kHz and an input voltage of 100 mV. According to Equation ~\ref{equ:integration}, for a sine input wave in an integrator circuit, the expected output is a cosine wave. As for square and triangular waveforms, the expected output waveforms are triangular wave with inverted slope and parabolic waveform, respectively.  
+In the assembled circuit, $\tau=R_P \cdot C = 10 M\Omega \cdot 10 nF = 0.1 s$ and $T=\frac{1}{1000}=0.001 s$, therefore $tau=100 T>>T$, which meets the given condition\cite{opamp_manual}.
+\begin{table}[H]
+    \centering
+    \caption{Measured output voltages of the integrator circuit with and without $R_P$.}
+    \label{tab:integrator}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        Input signal & With $R_P$ (mV) & Without $R_P$ (mV) \\
+        \hline
+        Sine & 14.4 & 20.0 \\
+        \hline
+        Square & 22.4 & 28.0 \\
+        \hline
+        Triangle & 11.2 & 16.0 \\
+        \hline
+    \end{tabular}
+\end{table}
 
-%\nocite{*}
-%\printbibliography 
+The measured output voltages are presented in the table above. With the additional resistor present in the circuit, the output voltages were 14.4 mV, 22.4 mV and 11.2 mV for the sinusoidal, square and triangular inputs, respectively. Without the additional resistor, the output voltages experienced an increase in their values: to 20 mV, 28 mV and 16 mV. 
+\begin{figure}[H]
+    \centering
+
+    % Row 1: Sinusoidal input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_sine_with.jpg}
+        \caption{Sine, with $R_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_sine_without.jpg}
+        \caption{Sine, without $R_P$}
+    \end{subfigure}
+
+    \vspace{0.3cm}
+
+    % Row 2: Square input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_square_with.jpg}
+        \caption{Square, with $R_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_square_without.jpg}
+        \caption{Square, without $R_P$}
+    \end{subfigure}
+
+    \vspace{0.3cm}
+
+    % Row 3: Triangular input
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_triangle_with.jpg}
+        \caption{Triangle, with $R_P$}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{images/R_triangle_without.jpg}
+        \caption{Triangle, without $R_P$}
+    \end{subfigure}
+
+    \caption{Oscilloscope measurements of the integrator circuit
+    for sinusoidal, square and triangular input signals,
+    with and without the additional resistor $R_P$.}
+    \label{fig:integrator}
+\end{figure}
+
+As shown in Figure ~\ref{fig:integrator}, the measured waveforms followed expectation. For the sinusoidal input, the output remained approximately sinusoidal, while acquiring a phase shift. In the square-wave input case, an approximately triangular output waveform was observed, and the triangular input led to a curved output waveform. 
+
+The measured output amplitudes were lower with $R_P$ present and they were more clearly distinguishable. The additional resistor provides a DC feedback path, and as a consequence, it reduces the output drift and prevents the accumulation of DC errors \cite{TI_integrator}. 
+\section{Conclusion}
+The different configurations (inverting, adder, non-inverting voltage follower, differentiator, integrator) of operational amplifiers were successfully investigated during the laboratory session.
+
+The measured voltage gains of the inverting amplifier, adder amplifier and voltage follower were close to the theoretical values. A saturating behavior for the inverting amplifier was observed and an upper cutoff frequency of 731 kHz was determined. 
+
+The measured waveforms for the differentiator and integrator circuits showed expected results, however, some deviation from the ideal response was observed. 
+
+Overall, the measurements demonstrated the operation of different amplifier configurations and the influence of various circuit components on the output. 
+
+\nocite{*}
+\printbibliography 
 \end{document}
